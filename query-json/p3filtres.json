@@ -1,0 +1,381 @@
+[
+    {    "marca": [
+        {
+            "mid": "1",
+            "nom": "Acer"
+        },
+        {
+            "mid": "2",
+            "nom": "Apple"
+        },
+        {
+            "mid": "3",
+            "nom": "Asus"
+        },
+        {
+            "mid": "4",
+            "nom": "Dell"
+        },
+        {
+            "mid": "5",
+            "nom": "HP"
+        },
+        {
+            "mid": "6",
+            "nom": "Lenovo"
+        },
+        {
+            "mid": "7",
+            "nom": "LG"
+        },
+        {
+            "mid": "8",
+            "nom": "Toshiba"
+        },
+        {
+            "mid": "9",
+            "nom": "MSI"
+        },
+        {
+            "mid": "10",
+            "nom": "Bq"
+        },
+        {
+            "mid": "11",
+            "nom": "Samsung"
+        },
+        {
+            "mid": "12",
+            "nom": "Medion"
+        }
+    ],
+    "tipus": [
+        {
+            "tid": "1",
+            "descripcio": "Port\u00e0tils"
+        },
+        {
+            "tid": "2",
+            "descripcio": "Sobretaula"
+        },
+        {
+            "tid": "3",
+            "descripcio": "Tablets"
+        }
+    ],
+    "emmagatzematge": [
+        {
+            "eid": "1",
+            "capacitat": "256"
+        },
+        {
+            "eid": "2",
+            "capacitat": "500"
+        },
+        {
+            "eid": "3",
+            "capacitat": "750"
+        },
+        {
+            "eid": "4",
+            "capacitat": "1000"
+        },
+        {
+            "eid": "5",
+            "capacitat": "1500"
+        },
+        {
+            "eid": "6",
+            "capacitat": "2000"
+        },
+        {
+            "eid": "7",
+            "capacitat": "32 SSD"
+        },
+        {
+            "eid": "8",
+            "capacitat": "64 SSD"
+        },
+        {
+            "eid": "9",
+            "capacitat": "128 SSD"
+        },
+        {
+            "eid": "10",
+            "capacitat": "256 SSD"
+        },
+        {
+            "eid": "11",
+            "capacitat": "512 SSD"
+        }
+    ],
+    "processador": [
+        {
+            "procid": "1",
+            "descripcio": "Intel I7"
+        },
+        {
+            "procid": "2",
+            "descripcio": "Intel I5"
+        },
+        {
+            "procid": "3",
+            "descripcio": "AMD 10"
+        },
+        {
+            "procid": "4",
+            "descripcio": "AMD 12"
+        },
+        {
+            "procid": "5",
+            "descripcio": "AMD 6"
+        },
+        {
+            "procid": "6",
+            "descripcio": "AMD 8"
+        },
+        {
+            "procid": "7",
+            "descripcio": "AMD E"
+        },
+        {
+            "procid": "8",
+            "descripcio": "AMD Ryzen"
+        },
+        {
+            "procid": "9",
+            "descripcio": "Intel I3"
+        },
+        {
+            "procid": "10",
+            "descripcio": "Intel Pentiun"
+        },
+        {
+            "procid": "11",
+            "descripcio": "Intel Xenon"
+        },
+        {
+            "procid": "12",
+            "descripcio": "Intel Celeron"
+        }
+    ],
+    "ram": [
+        {
+            "rid": "1",
+            "capacitat": "4GB DDR3"
+        },
+        {
+            "rid": "2",
+            "capacitat": "4GB DDR4"
+        },
+        {
+            "rid": "3",
+            "capacitat": "8GB DDR3"
+        },
+        {
+            "rid": "4",
+            "capacitat": "8GB DDR4"
+        },
+        {
+            "rid": "5",
+            "capacitat": "12GB DDR3"
+        },
+        {
+            "rid": "6",
+            "capacitat": "12GB DDR4"
+        },
+        {
+            "rid": "7",
+            "capacitat": "16GB DDR3"
+        },
+        {
+            "rid": "8",
+            "capacitat": "16GB DDR4"
+        },
+        {
+            "rid": "9",
+            "capacitat": "20GB DDR3"
+        },
+        {
+            "rid": "10",
+            "capacitat": "20GB DDR4"
+        },
+        {
+            "rid": "11",
+            "capacitat": "24GB DDR3"
+        },
+        {
+            "rid": "12",
+            "capacitat": "24GB DDR4"
+        },
+        {
+            "rid": "13",
+            "capacitat": "32GB DDR3"
+        },
+        {
+            "rid": "14",
+            "capacitat": "32GB DDR4"
+        },
+        {
+            "rid": "15",
+            "capacitat": "64GB DDR3"
+        },
+        {
+            "rid": "16",
+            "capacitat": "64GB DDR4"
+        }
+    ],
+    "polzades": [
+        {
+            "polid": "1",
+            "polzades": "10.00"
+        },
+        {
+            "polid": "2",
+            "polzades": "10.10"
+        },
+        {
+            "polid": "3",
+            "polzades": "11.60"
+        },
+        {
+            "polid": "4",
+            "polzades": "12.00"
+        },
+        {
+            "polid": "5",
+            "polzades": "12.20"
+        },
+        {
+            "polid": "6",
+            "polzades": "13.00"
+        },
+        {
+            "polid": "13",
+            "polzades": "0.00"
+        },
+        {
+            "polid": "14",
+            "polzades": "11.60"
+        },
+        {
+            "polid": "15",
+            "polzades": "12.00"
+        },
+        {
+            "polid": "16",
+            "polzades": "12.20"
+        },
+        {
+            "polid": "17",
+            "polzades": "13.00"
+        },
+        {
+            "polid": "18",
+            "polzades": "13.30"
+        },
+        {
+            "polid": "19",
+            "polzades": "13.90"
+        },
+        {
+            "polid": "20",
+            "polzades": "14.00"
+        },
+        {
+            "polid": "21",
+            "polzades": "15.00"
+        },
+        {
+            "polid": "22",
+            "polzades": "15.60"
+        },
+        {
+            "polid": "23",
+            "polzades": "17.00"
+        },
+        {
+            "polid": "24",
+            "polzades": "17.30"
+        },
+        {
+            "polid": "25",
+            "polzades": "15.40"
+        },
+        {
+            "polid": "26",
+            "polzades": "0.00"
+        }
+    ],
+    "grafica": [
+        {
+            "gid": "1",
+            "model": "Geforce 920M"
+        },
+        {
+            "gid": "2",
+            "model": "GeForce 930M"
+        },
+        {
+            "gid": "3",
+            "model": "GeForce 940MX"
+        },
+        {
+            "gid": "4",
+            "model": "GeForce 945M"
+        },
+        {
+            "gid": "5",
+            "model": "GeForce GTX 1050"
+        },
+        {
+            "gid": "6",
+            "model": "GeForce GTX 1060"
+        },
+        {
+            "gid": "7",
+            "model": "GeForce GTX 1080"
+        },
+        {
+            "gid": "8",
+            "model": "GeForce GTX 940M"
+        },
+        {
+            "gid": "9",
+            "model": "GeForce GTX 950M"
+        },
+        {
+            "gid": "10",
+            "model": "GeForce GTX 960M"
+        },
+        {
+            "gid": "11",
+            "model": "GeForce GTX 970M"
+        },
+        {
+            "gid": "12",
+            "model": "GeForce GTX 980M"
+        },
+        {
+            "gid": "13",
+            "model": "GeForce MX150"
+        },
+        {
+            "gid": "14",
+            "model": "Radeon HD 530v"
+        },
+        {
+            "gid": "15",
+            "model": "Radeon R5 M430"
+        },
+        {
+            "gid": "16",
+            "model": "Radeon R7 M440"
+        },
+        {
+            "gid": "17",
+            "model": "Radeon R7 M445"
+        }
+    ]
+}
+]

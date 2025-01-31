@@ -1,0 +1,6 @@
+ Crear componente aside y cada categoría dentro del aside es un componente.
+ 
+ El archivo php hace la consulta a la base de datos y retorna un json. Esto se necesita usar para aplicar los filtros.
+ Hay q hacer un fetch para enviar datos, de los filtros marcados.
+
+ 
