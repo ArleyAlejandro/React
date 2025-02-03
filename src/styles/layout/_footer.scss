@@ -1,0 +1,16 @@
+.footer{
+    background: #556080;
+    color: white;
+   
+
+    ul{
+        margin: 0;
+        display: flex;
+        justify-content: space-evenly;
+        
+       li{
+        padding: 30px;
+        list-style: none;
+       }
+    }
+}
