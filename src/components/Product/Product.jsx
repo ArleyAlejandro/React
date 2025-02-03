@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 const Product = ({ pid, marca, model, imatge, processador, ram, emmagatzematge, polzades, preu }) => {
   return (
     <div className="product-wrapper">
-      <h2>{marca}</h2>
-      <h3>{model}</h3>
+     <div className="prod-title">
+        <h2>{marca}</h2>
+        <h3>{model}</h3>
+     </div>
       <img src={`../../src/pccomp/${imatge}`} alt={model} />
       <p>
         {processador}/{ram}/{emmagatzematge}/{polzades}

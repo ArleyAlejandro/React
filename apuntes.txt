@@ -1,6 +1,53 @@
- Crear componente aside y cada categoría dentro del aside es un componente.
- 
- El archivo php hace la consulta a la base de datos y retorna un json. Esto se necesita usar para aplicar los filtros.
- Hay q hacer un fetch para enviar datos, de los filtros marcados.
+Apuntes organizados
+1. Creación del Aside y categorías como componentes
 
- 
+    Cada categoría debe ser un componente independiente dentro del Aside.
+    Inicialmente, los datos pueden provenir de un JSON estático, pero luego deben obtenerse desde la base de datos.
+
+2. Petición fetch a PHP
+
+    Se usa un archivo PHP para obtener los datos de la base de datos y devolver un JSON.
+    fetch obtiene los datos del servidor para mostrar el catálogo de productos.
+
+3. Filtros y reactividad
+
+    Un objeto en el estado almacena los filtros seleccionados.
+    Cuando los filtros cambian, se vuelve a hacer fetch para actualizar los datos.
+
+4. Captura de checkboxes seleccionados
+
+    Se usa data- atributos para relacionar los checkboxes con sus categorías.
+    Se seleccionan los checkboxes marcados con querySelectorAll('input:checked').
+
+5. Uso de useRef para manipular el DOM
+
+    useRef se usa para referenciar el Aside y encontrar los checkboxes seleccionados.
+    Se agrega un eventListener de change para detectar cambios en los filtros.
+
+  -----  Pasos para realizar la actividad  -----
+
+    Crear el componente Aside
+        Implementar un componente Aside que contendrá las categorías como subcomponentes.
+
+    Crear los componentes de categoría
+        Cada categoría dentro del Aside debe ser un componente separado.
+        Usar un JSON de prueba inicialmente para cargar las categorías.
+
+    Realizar la consulta a la base de datos en PHP
+        Crear un archivo PHP que haga la consulta a la base de datos y devuelva los datos en formato JSON.
+
+    Implementar fetch para obtener datos del servidor
+        Hacer una petición fetch para obtener los datos desde el JSON generado por PHP.
+        Al cargar el catálogo, hacer fetch una sola vez.
+
+    Configurar el sistema de filtros dinámicos
+        Crear un objeto que almacene los filtros seleccionados.
+        Cada vez que el objeto de filtros cambie, hacer una nueva petición fetch (agregar el objeto de filtros en la lista de dependencias de useEffect).
+
+    Capturar los checkboxes seleccionados
+        Usar data- atributos para relacionar cada checkbox con su categoría.
+        Utilizar querySelectorAll('input:checked') para obtener todos los checkboxes marcados.
+
+    Implementar useRef y eventos de cambio
+        Usar useRef para referenciar el Aside y obtener los checkboxes.
+        Agregar un eventListener de change para actualizar el objeto de filtros cada vez que se marque o desmarque un checkbox.

@@ -34,7 +34,7 @@ const Content = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className="wrapper">
       {products.map((product) => (
         <Product
           key={product.model}
