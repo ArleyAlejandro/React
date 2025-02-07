@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import Category from "../Categoria/Categoria";
 
-const Content = () => {
-  const [categories, setCategories] = useState({});
+const Aside = ({ setSelectedFilters }) => {
+  const [categories, setCategories] = useState({});// categories: Almacena las categorías de filtros obtenidas del JSON.
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedFilters, setSelectedFilters] = useState({}); // Definir el estado
 
   useEffect(() => {
     fetch("../../query-json/p3filtres.json")
@@ -23,45 +22,32 @@ const Content = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Manejador de cambios en los checkboxes
+  // Manejo de checkboxes
   const handleCheckboxChange = (e) => {
+
+    // Extrae el name, value y checked del checkbox clicado.
     const { name, value, checked } = e.target;
 
-    // Actualizar el estado
     setSelectedFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-
-      // Agregar o quitar el valor del filtro seleccionado
+      
+      // Actualiza setSelectedFilters, añadiendo o eliminando filtros según si el checkbox está marcado o desmarcado.
+      // Si no hay más filtros de una categoría, la elimina.
       if (checked) {
-        if (!updatedFilters[name]) {
-          updatedFilters[name] = [];
-        }
-
-        // Agregar solo si el valor no está ya en el array
-        if (!updatedFilters[name].includes(value)) {
-          updatedFilters[name].push(value);
-        }
+        if (!updatedFilters[name]) updatedFilters[name] = [];
+        if (!updatedFilters[name].includes(value)) updatedFilters[name].push(value);
       } else {
-        updatedFilters[name] = updatedFilters[name].filter(
-          (item) => item !== value
-        );
-
-        // Eliminar la categoría si está vacía
-        if (updatedFilters[name].length === 0) {
-          delete updatedFilters[name];
-        }
+        updatedFilters[name] = updatedFilters[name].filter((item) => item !== value);
+        if (updatedFilters[name].length === 0) delete updatedFilters[name];
       }
-
-      console.log("Filtros seleccionados:", updatedFilters);
-
+      // console.log(updatedFilters)
       return updatedFilters;
     });
   };
 
-  // Se devolverá un div con muchas categorias. paso el título y el valor al componente Category, para mostrarlos
-  // allí
   return (
     <div className="aside-wrapper">
+      {/* Object.entries(categories) convierte el objeto en un array de [clave, valores] */}
       {Object.entries(categories).map(([key, values]) => (
         <Category key={key} title={key} items={values} handleCheckboxChange={handleCheckboxChange}/>
       ))}
@@ -69,4 +55,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default Aside;
