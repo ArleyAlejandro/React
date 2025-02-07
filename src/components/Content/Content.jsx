@@ -6,11 +6,13 @@ const Content = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const {cart, setCart}  = useContext(ProductContext);
+  const { cart, setCart } = useContext(ProductContext);
 
+  // Este hook permite ejecutar efectos secundarios en los componentes de React. El código dentro de useEffect se ejecuta cuando el componente se monta (es decir, cuando se renderiza por primera vez).
+  // El segundo parámetro [] asegura que el efecto se ejecute solo una vez
   useEffect(() => {
     fetch("../../query-json/cataleg.json")
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((data) => {
         setProducts(data);
         setLoading(false);
@@ -19,15 +21,28 @@ const Content = () => {
         setError(err);
         setLoading(false);
       });
-    }, []);
-    
-  const handleClick = (e) => {
-   
-    cart
-    setCart;
+  }, []);
 
+  const handleClick = (e) => {
     e.stopPropagation();
-    e.target.getAttribute("data-id") ? console.log("Producto añadido:", e.target.getAttribute("data-id")) : "" ;
+
+    // Obtener el ID del producto
+    const productId = e.target.getAttribute("data-id");
+    if (!productId) return;
+
+    // Buscar el producto en la lista de productos cargados
+    const selectedProduct = products.find(
+      (product) => product.pid === productId
+    );
+    if (!selectedProduct) return;
+
+    // Verificar si ya está en el carrito
+    setCart((prevCart) => {
+      if (prevCart.some((item) => item.pid === productId)) {
+        return prevCart;
+      }
+      return [...prevCart, selectedProduct]; 
+    });
   };
 
   if (loading) return <p>Loading...</p>;
