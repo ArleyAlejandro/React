@@ -4,7 +4,7 @@
   try {
     foreach ($taules as $key => $value){
       $sql = "SELECT * FROM ".$value;
-      $dbh = new PDO('mysql:host=10.0.50.20;dbname=cataleg;charset=utf8','dbadmin', 'Thos-2024');
+      $dbh = new PDO('mysql:host=localhost;dbname=cataleg;charset=utf8','root', 'T51ntC_Xale01');
       $sth = $dbh->prepare($sql);
       $sth->execute();
       while($result = $sth->fetch(PDO::FETCH_ASSOC)){
