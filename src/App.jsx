@@ -1,4 +1,4 @@
-import { useState } from "react"; // ✅ Asegura importar useState
+import { useState } from "react";
 import Content from "./components/Content/Content";
 import { ProductProvider } from "./context/ProductContext";
 import Header from "./components/Header/Header";
@@ -17,7 +17,7 @@ function App() {
       <Header />
       <MainMenu />
       <div className="flex-div">
-        <Aside setSelectedFilters={setSelectedFilters} /> {/* ✅ PASO CORRECTAMENTE LA PROP */}
+        <Aside setSelectedFilters={setSelectedFilters} /> 
         <Content selectedFilters={selectedFilters} />
       </div>
       <Footer />

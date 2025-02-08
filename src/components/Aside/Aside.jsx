@@ -40,7 +40,8 @@ const Aside = ({ setSelectedFilters }) => {
         updatedFilters[name] = updatedFilters[name].filter((item) => item !== value);
         if (updatedFilters[name].length === 0) delete updatedFilters[name];
       }
-      // console.log(updatedFilters)
+      
+      console.log(updatedFilters)
       return updatedFilters;
     });
   };
