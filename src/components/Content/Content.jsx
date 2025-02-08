@@ -16,18 +16,30 @@ const Content = ({ selectedFilters }) => {
 
   // Este hook permite ejecutar efectos secundarios en los componentes de React. El código dentro de useEffect se ejecuta cuando el componente se monta (es decir, cuando se renderiza por primera vez).
   // El segundo parámetro [] asegura que el efecto se ejecute solo una vez
+  // useEffect(() => {
+  //   fetch("../../query-json/cataleg.json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setProducts(data);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       setError(err);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch("../../query-json/cataleg.json")
+    fetch("http://localhost:8000/p3cataleg.php", 
+    {
+      method: "POST",
+      body: JSON.stringify(filters),
+    }
+  )
       .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err);
-        setLoading(false);
-      });
-  }, []);
+      .then((products) => setProducts(products))
+      .catch((error) => console.error(error));
+  }, [filters]);
 
   const handleClick = (e) => {
     e.stopPropagation();
