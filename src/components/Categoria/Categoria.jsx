@@ -22,7 +22,6 @@ const Category = ({ title, items, handleCheckboxChange}) => {
               data-category={title}
               data-name={nombre}
               type="checkbox"
-              value={value}
               id={inputId}
               name={title}
               onChange={handleCheckboxChange}

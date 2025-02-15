@@ -8,11 +8,11 @@ const Content = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { setCart } = useContext(ProductContext);
+  const { setCart} = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
 
-   // 1️⃣ Cargar productos desde la API SOLO UNA VEZ
-   useEffect(() => {
+  // 1️⃣ Cargar productos desde la API SOLO UNA VEZ
+  useEffect(() => {
     fetch("http://localhost:8000/p3cataleg.php")
       .then((response) => response.json())
       .then((data) => {
@@ -30,15 +30,14 @@ const Content = () => {
     if (!Filter || Object.keys(Filter).length === 0) return true; // Sin filtros, mostrar todos
 
     return Object.entries(Filter).every(([key, values]) => {
-      if (!values || values.length === 0) return true;  // Si no hay valores en la categoría, no filtrar por ella
+      if (!values || values.length === 0) return true; // Si no hay valores en la categoría, no filtrar por ella
 
       const productValue = product[key] ? String(product[key]) : ""; // Convertir a string para evitar errores
       return values.includes(productValue);
     });
   });
 
-
-  console.log("Filtros:", Filter);
+  // console.log("Filtros:", Filter);
   // console.log("Productos:", products);
 
   const handleClick = (e) => {
@@ -57,7 +56,8 @@ const Content = () => {
 
     // console.log({ "Productos Clickado: ": products[productId - 1] });
     var selectedProduct = products[productId - 1];
-    console.log(selectedProduct);
+    // console.log({ selected: selectedProduct });
+    // console.log(products[productId - 1]);
 
     // console.log(products.find((producto) => producto.pid === productId));
 
@@ -68,17 +68,13 @@ const Content = () => {
       // console.log("Producto encontrado:", selectedProduct);
     }
 
-    // Verificar si ya está en el carrito
     setCart((prevCart) => {
-      // Si ya está en el carrito, no lo añade de nuevo.
-      if (prevCart.some((item) => item.pid === productId)) {
-        return prevCart;
+      if (prevCart.some((item) => item.pid === selectedProduct.pid)) {
+        return prevCart; // No agregar si ya está en el carrito
       }
-
-      // console.log({"Carrito antes de agregar productos: ":prevCart});
-
-      return [...prevCart, selectedProduct];
+      return [...prevCart, selectedProduct]; // Agregar si no está en el carrito
     });
+    
   };
 
   if (loading) return <p>Loading...</p>;
@@ -106,7 +102,7 @@ const Content = () => {
           />
         ))
       ) : (
-        <p>No se encontraron productos con los filtros seleccionados.</p>
+        <p className="error">No se encontraron productos</p>
       )}
     </div>
   );

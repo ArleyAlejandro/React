@@ -5,7 +5,7 @@ import ProductContext from "../../context/ProductContext"; // Importar el contex
 export function MainMenu() {
   const { cart } = useContext(ProductContext); // Acceder al carrito
  
-  // console.log({"Carrito después de agregar productos: " : cart});
+  console.log({"Carrito después de agregar productos: " : cart});
 
   return (
     <div className="main-menu">

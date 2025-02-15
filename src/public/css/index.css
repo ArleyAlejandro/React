@@ -1,4 +1,9 @@
+body {
+  margin: 0;
+}
+
 .wrapper {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
@@ -119,6 +124,14 @@
 }
 .flex-div .category .toggle-button:hover {
   background-color: #999999;
+}
+
+.error {
+  grid-column: 1/4;
+  color: #1fa2d6;
+  font-size: 2rem;
+  text-align: center;
+  font-family: monospace;
 }
 
 .header-wrapper {
