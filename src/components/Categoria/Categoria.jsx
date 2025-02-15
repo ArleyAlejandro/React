@@ -5,7 +5,7 @@ const Category = ({ title, items, handleCheckboxChange}) => {
   const [expanded, setExpanded] = useState(false);
   // Solo mostrar 3 items por categoría. default
   const visibleItems = expanded ? items : items.slice(0, 3);
-
+  
   return (
     <div className="category">
       <h2 className="cat-title">{title}</h2>
@@ -20,10 +20,11 @@ const Category = ({ title, items, handleCheckboxChange}) => {
           <div key={inputId} className="category-item">
             <input
               data-category={title}
+              data-name={nombre}
               type="checkbox"
+              value={value}
               id={inputId}
               name={title}
-              value={value}
               onChange={handleCheckboxChange}
             />
             <label htmlFor={inputId}>{nombre}</label>

@@ -1,29 +1,28 @@
-import { useState } from "react";
-import Content from "./components/Content/Content";
-import { ProductProvider } from "./context/ProductContext";
 import Header from "./components/Header/Header";
 import MainMenu from "./components/MainMenu/MainMenu";
-import Footer from "./components/Footer/Footer";
 import Aside from "./components/Aside/Aside";
+import Content from "./components/Content/Content";
+import Footer from "./components/Footer/Footer";
+
+import { ProductProvider } from "./context/ProductContext";
+import { FilterProvider } from "./context/FilterContext";
 
 function App() {
-  // selectedFilters: Objeto que guarda los filtros seleccionados
-  // setSelectedFilters: Función para actualizar los filtros cuando el usuario marca/desmarca checkboxes.
-  // useState({}): Inicia el estado como un objeto vacío (sin filtros aplicados).
-  const [selectedFilters, setSelectedFilters] = useState({});
-
   return (
     <ProductProvider>
-      <Header />
-      <MainMenu />
-      <div className="flex-div">
-        <Aside setSelectedFilters={setSelectedFilters} /> 
-        <Content selectedFilters={selectedFilters} />
-      </div>
-      <Footer />
+      <FilterProvider>
+
+        <Header />
+        <MainMenu />
+        <div className="flex-div">
+          <Aside />
+          <Content />
+        </div>
+        <Footer />
+        
+      </FilterProvider>
     </ProductProvider>
   );
 }
-
 
 export default App;
