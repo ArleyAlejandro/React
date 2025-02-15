@@ -11,6 +11,8 @@
   flex-direction: column;
   text-align: center;
   margin-inline: 10px;
+  height: -moz-min-content;
+  height: min-content;
 }
 .product-wrapper img {
   width: 100%;

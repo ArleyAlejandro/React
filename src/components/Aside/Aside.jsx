@@ -45,26 +45,33 @@ const Aside = () => {
     // console.log(name);
     // console.log(labelName);
     // console.log(value);
-
     // console.log(checked);
-    setFilter(( prevFilters ) => {
-      const updatedFilters = { ...prevFilters };
 
-      // Actualiza setFilter, añadiendo o eliminando filtros según si el checkbox está marcado o desmarcado.
-      // Si no hay más filtros de una categoría, la elimina.
+    setFilter((prevFilters) => {
+      const updatedFilters = { ...prevFilters };
+    
       if (checked) {
+        // Agregar el filtro si no está presente
         if (!updatedFilters[name]) updatedFilters[name] = [];
-        if (!updatedFilters[name].includes(value))
+        if (!updatedFilters[name].includes(labelName)) {
           updatedFilters[name].push(labelName);
+        }
       } else {
+        // Eliminar el filtro
         updatedFilters[name] = updatedFilters[name].filter(
-          (item) => item !== value
+          (item) => item !== labelName
         );
-        if (updatedFilters[name].length === 0) delete updatedFilters[name];
+    
+        // Si la categoría queda vacía, eliminarla del objeto
+        if (updatedFilters[name].length === 0) {
+          const { [name]: _, ...newFilters } = updatedFilters;
+          return newFilters; 
+        }
       }
-      // console.log( "filtros: ", updatedFilters)
-      return updatedFilters;
+    
+      return { ...updatedFilters };
     });
+    
   };
 
   return (

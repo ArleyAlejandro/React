@@ -11,10 +11,8 @@ const Content = () => {
   const { setCart } = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
 
-  // Este hook permite ejecutar efectos secundarios en los componentes de React. El código dentro de useEffect se ejecuta cuando el componente se monta (es decir, cuando se renderiza por primera vez).
-  // El segundo parámetro [] asegura que el efecto se ejecute solo una vez
-  // 1. Cargar productos SOLO UNA VEZ al inicio
-  useEffect(() => {
+   // 1️⃣ Cargar productos desde la API SOLO UNA VEZ
+   useEffect(() => {
     fetch("http://localhost:8000/p3cataleg.php")
       .then((response) => response.json())
       .then((data) => {
@@ -25,9 +23,22 @@ const Content = () => {
         setError(err);
         setLoading(false);
       });
-  }, [Filter]);
+  }, []);
 
-  // console.log("Filtros:", Filter);
+  // 2️⃣ Filtrar productos en tiempo real
+  const filteredProducts = products.filter((product) => {
+    if (!Filter || Object.keys(Filter).length === 0) return true; // Sin filtros, mostrar todos
+
+    return Object.entries(Filter).every(([key, values]) => {
+      if (!values || values.length === 0) return true;  // Si no hay valores en la categoría, no filtrar por ella
+
+      const productValue = product[key] ? String(product[key]) : ""; // Convertir a string para evitar errores
+      return values.includes(productValue);
+    });
+  });
+
+
+  console.log("Filtros:", Filter);
   // console.log("Productos:", products);
 
   const handleClick = (e) => {
@@ -78,21 +89,25 @@ const Content = () => {
   // Renderizar los Productos
   return (
     <div className="wrapper">
-      {products.map((product) => (
-        <Product
-          key={product.model}
-          pid={product.pid}
-          marca={product.marca}
-          model={product.model}
-          imatge={product.imatge}
-          processador={product.processador}
-          ram={product.ram}
-          emmagatzematge={product.emmagatzematge}
-          polzades={product.polzades}
-          preu={product.preu}
-          handleClick={handleClick}
-        />
-      ))}
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product) => (
+          <Product
+            key={product.model}
+            pid={product.pid}
+            marca={product.marca}
+            model={product.model}
+            imatge={product.imatge}
+            processador={product.processador}
+            ram={product.ram}
+            emmagatzematge={product.emmagatzematge}
+            polzades={product.polzades}
+            preu={product.preu}
+            handleClick={handleClick}
+          />
+        ))
+      ) : (
+        <p>No se encontraron productos con los filtros seleccionados.</p>
+      )}
     </div>
   );
 };
