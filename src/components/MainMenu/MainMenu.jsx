@@ -4,6 +4,8 @@ import ProductContext from "../../context/ProductContext"; // Importar el contex
 
 export function MainMenu() {
   const { cart } = useContext(ProductContext); // Acceder al carrito
+ 
+  // console.log({"Carrito después de agregar productos: " : cart});
 
   return (
     <div className="main-menu">
@@ -15,7 +17,7 @@ export function MainMenu() {
           <li>PRACTICA 4</li>
           <li>CONTACTE</li>
         </ul>
-      
+
         <div className="cart">
           <img src={cartIcon} alt="cart icon" />
           {cart.length > 0 && <span className="cart-count">{cart.length}</span>}

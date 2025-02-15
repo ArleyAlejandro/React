@@ -7,11 +7,18 @@ const Aside = ({ setSelectedFilters }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("../../query-json/p3filtres.json")
+    fetch("http://localhost:8000/p3filtres.php")
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
-        setCategories(data[0]);
+        
+        
+        if (!data || typeof data !== "object") {
+          setError(new Error("Datos inválidos recibidos"));
+          return;
+        }
+        
+        setCategories(data);
       })
       .catch((err) => {
         setError(err);
@@ -41,7 +48,7 @@ const Aside = ({ setSelectedFilters }) => {
         if (updatedFilters[name].length === 0) delete updatedFilters[name];
       }
       
-      console.log(updatedFilters)
+      console.log( "filtros: ", updatedFilters)
       return updatedFilters;
     });
   };

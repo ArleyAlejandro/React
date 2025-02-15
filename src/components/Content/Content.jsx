@@ -17,10 +17,11 @@ const Content = ({ selectedFilters }) => {
   // Este hook permite ejecutar efectos secundarios en los componentes de React. El código dentro de useEffect se ejecuta cuando el componente se monta (es decir, cuando se renderiza por primera vez).
   // El segundo parámetro [] asegura que el efecto se ejecute solo una vez
   useEffect(() => {
-    fetch("../../query-json/cataleg.json")
+    fetch("http://localhost:8000/p3cataleg.php")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
+        console.log(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -30,18 +31,35 @@ const Content = ({ selectedFilters }) => {
   }, []);
 
   const handleClick = (e) => {
+    // console.log("handleClick ejecutado");
     e.stopPropagation();
 
     // Obtener el ID del producto
     const productId = e.target.getAttribute("data-id"); //Se obtiene el pid del producto desde el atributo data-id del HTML.
-    if (!productId) return;
 
-    // Buscar el producto en la lista de productos cargados
-    const selectedProduct = products.find(
-      (product) => product.pid === productId
-    );
+    if (!productId) {
+      console.log("No llega un id");
+      return;
+    } else {
+      console.log("Llega el id: ", productId);
+    }
 
-    if (!selectedProduct) return;
+    // quiero encontrar el producto que tiene como pid productoId - 1
+    // products empieza desde el indice 0, sin embargo el id siempre empieza desde el 1
+    // entonces si no le resto 1 , sería el producto siguiente 
+
+    // console.log({ "Productos Clickado: ": products[productId - 1] });
+    var selectedProduct = products[productId - 1];
+    // console.log(selectedProduct);
+
+    // console.log(products.find((producto) => producto.pid === productId));
+
+    if (!selectedProduct) {
+      // console.log("no llega un producto");
+      return;
+    } else {
+      // console.log("Producto encontrado:", selectedProduct);
+    }
 
     // Verificar si ya está en el carrito
     setCart((prevCart) => {
@@ -49,7 +67,9 @@ const Content = ({ selectedFilters }) => {
       if (prevCart.some((item) => item.pid === productId)) {
         return prevCart;
       }
-      // Si no está, lo agrega
+
+      // console.log({"Carrito antes de agregar productos: ":prevCart});
+      
       return [...prevCart, selectedProduct];
     });
   };
@@ -72,8 +92,8 @@ const Content = ({ selectedFilters }) => {
 
   // Renderizar los Productos
   return (
-    <div onClick={handleClick} className="wrapper">
-      {/* {filteredProducts.map((product) => ( */} 
+    <div className="wrapper">
+      {/* {filteredProducts.map((product) => ( */}
       {products.map((product) => (
         <Product
           key={product.model}
@@ -86,6 +106,7 @@ const Content = ({ selectedFilters }) => {
           emmagatzematge={product.emmagatzematge}
           polzades={product.polzades}
           preu={product.preu}
+          handleClick={handleClick}
         />
       ))}
     </div>

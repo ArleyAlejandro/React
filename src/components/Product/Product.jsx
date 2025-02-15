@@ -10,6 +10,7 @@ const Product = ({
   emmagatzematge,
   polzades,
   preu,
+  handleClick
 }) => {
   return (
     <div className="product-wrapper">
@@ -23,7 +24,7 @@ const Product = ({
       </p>
       <a href="#">See Details</a>
       <p>Price: {preu} €</p>
-      <button data-id={pid} className="buy-button">Buy</button>
+      <button data-id={pid} className="buy-button" onClick={handleClick}>Buy</button>
     </div>
   );
 };
