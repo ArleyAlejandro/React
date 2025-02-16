@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import Category from "../Categoria/Categoria";
 import FilterContext from "../../context/FilterContext";
+import CartContext from "../../context/CartContext";
 
 const Aside = () => {
   const [categories, setCategories] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const {setFilter} = useContext(FilterContext);
+  const { showCart } = useContext(CartContext);
 
   // console.log(Filter);
 
@@ -74,6 +77,8 @@ const Aside = () => {
     
   };
 
+// Por defecto mostrar la lista de filtros
+if (showCart === false){
   return (
     <div className="aside-wrapper">
       {Object.entries(categories).map(([key, values]) => (
@@ -86,6 +91,8 @@ const Aside = () => {
       ))}
     </div>
   );
+}
+
 };
 
 export default Aside;

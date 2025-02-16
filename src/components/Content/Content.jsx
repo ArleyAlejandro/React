@@ -3,15 +3,25 @@ import Product from "../Product/Product";
 import ProductContext from "../../context/ProductContext";
 import FilterContext from "../../context/FilterContext";
 import CartContext from "../../context/CartContext";
+import EmptyButton from "./EmptyButton";
+import BuyButton from "./BuyButton";
+import { useCallback } from "react";
 
 const Content = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantities, setQuantities] = useState({});
 
-  const { fullCart } = useContext(CartContext);
-  const { setCart } = useContext(ProductContext);
+  const { showCart, setShowCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
+
+  // true or false
+  // console.log(showCart);
+
+  // contenido del carrito
+  // console.log(cart);
 
   // 1️⃣ Cargar productos desde la API SOLO UNA VEZ
   useEffect(() => {
@@ -28,8 +38,8 @@ const Content = () => {
   }, []);
 
   // useEffect(() => {
-  // console.log("Estado de fullCart :", fullCart);
-  // }, [fullCart]);
+  // console.log("Estado de showCart :", showCart);
+  // }, [showCart]);
 
   // 2️⃣ Filtrar productos en tiempo real
   const filteredProducts = products.filter((product) => {
@@ -46,47 +56,74 @@ const Content = () => {
   // console.log("Filtros:", Filter);
   // console.log("Productos:", products);
 
-  const handleClick = (e) => {
-    // console.log("handleClick ejecutado");
-    e.stopPropagation();
+  const handleClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+      const productId = e.target.getAttribute("data-id");
+      if (!productId) return;
 
-    // Obtener el ID del producto
-    const productId = e.target.getAttribute("data-id"); //Se obtiene el pid del producto desde el atributo data-id del HTML.
+      const selectedProduct = products.find((p) => p.pid === Number(productId));
+      if (!selectedProduct) return;
 
-    if (!productId) {
-      // console.log("No llega un id");
-      return;
-    } else {
-      // console.log("Llega el id: ", productId);
-    }
+      setCart((prevCart) => {
+        if (prevCart.some((item) => item.pid === selectedProduct.pid)) {
+          return prevCart;
+        }
+        return [...prevCart, selectedProduct];
+      });
+    },
+    [products, setCart]
+  );
 
-    // console.log({ "Productos Clickado: ": products[productId - 1] });
-    var selectedProduct = products[productId - 1];
-    // console.log({ selected: selectedProduct });
-    // console.log(products[productId - 1]);
+  const handleInputValue = (e, pid, preu) => {
+    const newValue = Number(e.target.value);
 
-    // console.log(products.find((producto) => producto.pid === productId));
+    setQuantities((prev) => {
+      const updatedQuantities = { ...prev };
 
-    if (!selectedProduct) {
-      // console.log("no llega un producto");
-      return;
-    } else {
-      // console.log("Producto encontrado:", selectedProduct);
-    }
+      if (newValue === 0) {
+        // Si la cantidad es 0, eliminamos el producto
+        delete updatedQuantities[pid];
 
-    setCart((prevCart) => {
-      if (prevCart.some((item) => item.pid === selectedProduct.pid)) {
-        return prevCart; // No agregar si ya está en el carrito
+        // También lo eliminamos del carrito
+        setCart((prevCart) => {
+          const newCart = prevCart.filter((item) => item.pid !== pid);
+
+          // Si el carrito está vacío, volvemos a la vista de compra
+          if (newCart.length === 0) {
+            setShowCart(false);
+          }
+
+          return newCart;
+        });
+      } else {
+        // Si no es 0, simplemente actualizamos la cantidad
+        updatedQuantities[pid] = {
+          cantidad: newValue,
+          importe: newValue * preu,
+        };
       }
-      return [...prevCart, selectedProduct]; // Agregar si no está en el carrito
+
+      return updatedQuantities;
     });
+  };
+
+  const getTotal = () => {
+    return cart
+      .reduce((total, product) => {
+        const importe = Number(
+          quantities[product.pid]?.importe ?? product.preu
+        );
+        return total + importe;
+      }, 0)
+      .toFixed(2);
   };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   // Por defecto mostrar la lista de productos para hacer la compra
-  if (fullCart === false) {
+  if (showCart === false) {
     return (
       <div className="wrapper">
         {filteredProducts.length > 0 ? (
@@ -113,7 +150,66 @@ const Content = () => {
   }
   // Mostrar la lista de productos dentro del carrito
   else {
-    return <div className="wrapper">patata</div>;
+    return (
+      <div className="wrapper">
+        <table className="product-table">
+          <thead>
+            <tr>
+              <th>Ref.</th>
+              <th>Imatge</th>
+              <th>Descripció</th>
+              <th>Quantitat</th>
+              <th>Preu</th>
+              <th>Import</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((product) => (
+              <tr key={product.pid}>
+                <td>{product.pid}</td>
+                <td>
+                  <img
+                    src={`../../src/pccomp/${product.imatge}`}
+                    alt={product.model}
+                    className="product-image"
+                  />
+                </td>
+                <td>
+                  {product.marca} {product.model} <br />
+                  {product.processador} / {product.ram} /{" "}
+                  {product.emmagatzematge} / {product.polzades}"
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    max="10"
+                    defaultValue="1"
+                    className="quantity-input"
+                    onChange={(e) =>
+                      handleInputValue(e, product.pid, product.preu)
+                    }
+                  />
+                </td>
+                <td>{product.preu} €</td>
+                {/* Busca la cantidad del producto a partir del pid, además si no a aumentado, pone el precio x defecto */}
+                <td>
+                  {Number(
+                    quantities[product.pid]?.importe ?? product.preu
+                  ).toFixed(2)}{" "}
+                  €
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="cartButtons">
+          <EmptyButton></EmptyButton>
+          <BuyButton></BuyButton>
+        </div>
+        <p className="importe">Total: {getTotal()} €</p>
+      </div>
+    );
   }
 };
 

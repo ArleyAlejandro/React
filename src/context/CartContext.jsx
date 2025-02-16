@@ -4,12 +4,12 @@ const CartContext = createContext(null);
 
 const CartProvider = ({ children }) => {
   
-    const [fullCart, setFullCart] = useState(false);
+    const [showCart, setShowCart] = useState(false);
 
   return (
     <>
       {
-        <CartContext.Provider value={{ fullCart, setFullCart }}>
+        <CartContext.Provider value={{ showCart, setShowCart }}>
           {children}
         </CartContext.Provider>
       }

@@ -12,8 +12,8 @@ function App() {
   return (
     <ProductProvider>
       <FilterProvider>
-        <Header />
         <CartProvider>
+        <Header />
           <MainMenu />
           <div className="flex-div">
             <Aside />
