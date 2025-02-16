@@ -8,10 +8,8 @@ const Aside = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const {setFilter} = useContext(FilterContext);
+  const { setFilter } = useContext(FilterContext);
   const { showCart } = useContext(CartContext);
-
-  // console.log(Filter);
 
   useEffect(() => {
     fetch("http://localhost:8000/p3filtres.php")
@@ -19,15 +17,12 @@ const Aside = () => {
       .then((data) => {
         setLoading(false);
         setCategories(data);
-        // console.log(data);
 
+        // Si no se recibe un objeto, lanzar un error
         if (!data || typeof data !== "object") {
           setError(new Error("Datos inválidos recibidos"));
           return;
         }
-
-        // console.log(data);
-        // console.log({"categorias" : categories});
       })
       .catch((err) => {
         setError(err);
@@ -35,27 +30,24 @@ const Aside = () => {
       });
   }, []);
 
+  // Manejo de errores
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Manejo de checkboxes
+  // Manejar el cambio de los checkbox
   const handleCheckboxChange = (e) => {
-    // console.log(e.target);
-    // Extrae el name y checked del checkbox clicado.
-    const {name , checked } = e.target;
+    const { name, checked } = e.target;
     const labelName = e.target.getAttribute("data-id");
-    
-    // console.log(name);
-    // console.log(labelName);
-    // console.log(value);
-    // console.log(checked);
 
+    // Actualizar el estado de los filtros
     setFilter((prevFilters) => {
       const updatedFilters = { ...prevFilters };
-    
+
       if (checked) {
-        // Agregar el filtro si no está presente
+        // Si la categoría no existe, crearla
         if (!updatedFilters[name]) updatedFilters[name] = [];
+
+        // Si el filtro ya está presente, no hacer nada
         if (!updatedFilters[name].includes(labelName)) {
           updatedFilters[name].push(labelName);
         }
@@ -64,35 +56,33 @@ const Aside = () => {
         updatedFilters[name] = updatedFilters[name].filter(
           (item) => item !== labelName
         );
-    
+
         // Si la categoría queda vacía, eliminarla del objeto
         if (updatedFilters[name].length === 0) {
           const { [name]: _, ...newFilters } = updatedFilters;
-          return newFilters; 
+          return newFilters;
         }
       }
-    
+
       return { ...updatedFilters };
     });
-    
   };
 
-// Por defecto mostrar la lista de filtros
-if (showCart === false){
-  return (
-    <div className="aside-wrapper">
-      {Object.entries(categories).map(([key, values]) => (
-        <Category
-          key={key}
-          title={key}
-          items={values}
-          handleCheckboxChange={handleCheckboxChange}
-        />
-      ))}
-    </div>
-  );
-}
-
+  // Por defecto mostrar la lista de filtros
+  if (showCart === false) {
+    return (
+      <div className="aside-wrapper">
+        {Object.entries(categories).map(([key, values]) => (
+          <Category
+            key={key}
+            title={key}
+            items={values}
+            handleCheckboxChange={handleCheckboxChange}
+          />
+        ))}
+      </div>
+    );
+  }
 };
 
 export default Aside;

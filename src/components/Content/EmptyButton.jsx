@@ -1,11 +1,11 @@
-import { React, useContext } from "react";
+import React, { useContext, memo } from "react";
 import ProductContext from "../../context/ProductContext";
 import CartContext from "../../context/CartContext";
 
 const EmptyButton = () => {
   const { setCart } = useContext(ProductContext);
   const { setShowCart } = useContext(CartContext);
-  
+
   const handleClick = (e) => {
     e.stopPropagation();
 
@@ -13,9 +13,7 @@ const EmptyButton = () => {
       return [];
     });
 
-     // Alternar el estado de ShowCart correctamente
-     setShowCart((prev) => !prev);
-
+    setShowCart((prev) => !prev);
   };
 
   return (
@@ -24,4 +22,4 @@ const EmptyButton = () => {
     </button>
   );
 };
-export default EmptyButton;
+export default memo(EmptyButton);

@@ -1,4 +1,4 @@
-import {React,useContext} from "react";
+import React, { useContext, memo } from "react";
 import CartContext from "../../context/CartContext";
 
 const BuyButton = () => {
@@ -7,7 +7,6 @@ const BuyButton = () => {
   const handleClick = (e) => {
     e.stopPropagation();
 
-    // Alternar el estado de ShowCart correctamente
     setShowCart((prev) => !prev);
   };
 
@@ -18,4 +17,4 @@ const BuyButton = () => {
   );
 };
 
-export default BuyButton;
+export default memo(BuyButton);
