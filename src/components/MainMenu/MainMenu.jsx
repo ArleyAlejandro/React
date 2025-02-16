@@ -1,11 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import cartIcon from "../../assets/cart.png";
 import ProductContext from "../../context/ProductContext"; // Importar el contexto
+import CartContext from "../../context/CartContext";
 
 export function MainMenu() {
   const { cart } = useContext(ProductContext); // Acceder al carrito
- 
-  console.log({"Carrito después de agregar productos: " : cart});
+  const { setFullCart } = useContext(CartContext)
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+
+    // console.log("click");
+
+    // Alternar el estado de fullCart correctamente
+    setFullCart((prev) => !prev);
+
+    // console.log("Estado antes del cambio:", fullCart);
+  };
 
   return (
     <div className="main-menu">
@@ -19,7 +30,7 @@ export function MainMenu() {
         </ul>
 
         <div className="cart">
-          <img src={cartIcon} alt="cart icon" />
+          <img src={cartIcon} alt="cart icon" onClick={handleClick} />
           {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
         </div>
       </nav>

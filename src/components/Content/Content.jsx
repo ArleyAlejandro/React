@@ -2,13 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import Product from "../Product/Product";
 import ProductContext from "../../context/ProductContext";
 import FilterContext from "../../context/FilterContext";
+import CartContext from "../../context/CartContext";
 
 const Content = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { setCart} = useContext(ProductContext);
+  const { fullCart } = useContext(CartContext);
+  const { setCart } = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
 
   // 1️⃣ Cargar productos desde la API SOLO UNA VEZ
@@ -24,6 +26,10 @@ const Content = () => {
         setLoading(false);
       });
   }, []);
+
+  // useEffect(() => {
+  // console.log("Estado de fullCart :", fullCart);
+  // }, [fullCart]);
 
   // 2️⃣ Filtrar productos en tiempo real
   const filteredProducts = products.filter((product) => {
@@ -74,38 +80,41 @@ const Content = () => {
       }
       return [...prevCart, selectedProduct]; // Agregar si no está en el carrito
     });
-    
   };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Filtrar productos según los filtros seleccionados
-
-  // Renderizar los Productos
-  return (
-    <div className="wrapper">
-      {filteredProducts.length > 0 ? (
-        filteredProducts.map((product) => (
-          <Product
-            key={product.model}
-            pid={product.pid}
-            marca={product.marca}
-            model={product.model}
-            imatge={product.imatge}
-            processador={product.processador}
-            ram={product.ram}
-            emmagatzematge={product.emmagatzematge}
-            polzades={product.polzades}
-            preu={product.preu}
-            handleClick={handleClick}
-          />
-        ))
-      ) : (
-        <p className="error">No se encontraron productos</p>
-      )}
-    </div>
-  );
+  // Por defecto mostrar la lista de productos para hacer la compra
+  if (fullCart === false) {
+    return (
+      <div className="wrapper">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Product
+              key={product.model}
+              pid={product.pid}
+              marca={product.marca}
+              model={product.model}
+              imatge={product.imatge}
+              processador={product.processador}
+              ram={product.ram}
+              emmagatzematge={product.emmagatzematge}
+              polzades={product.polzades}
+              preu={product.preu}
+              handleClick={handleClick}
+            />
+          ))
+        ) : (
+          <p className="error">No se encontraron productos</p>
+        )}
+      </div>
+    );
+  }
+  // Mostrar la lista de productos dentro del carrito
+  else {
+    return <div className="wrapper">patata</div>;
+  }
 };
 
 export default Content;

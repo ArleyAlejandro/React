@@ -19,8 +19,7 @@ const Category = ({ title, items, handleCheckboxChange}) => {
         return (
           <div key={inputId} className="category-item">
             <input
-              data-category={title}
-              data-name={nombre}
+              data-id={nombre}
               type="checkbox"
               id={inputId}
               name={title}

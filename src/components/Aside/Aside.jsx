@@ -38,9 +38,9 @@ const Aside = () => {
   // Manejo de checkboxes
   const handleCheckboxChange = (e) => {
     // console.log(e.target);
-    // Extrae el name, value y checked del checkbox clicado.
-    const {name , value, checked } = e.target;
-    const labelName = e.target.getAttribute("data-name");
+    // Extrae el name y checked del checkbox clicado.
+    const {name , checked } = e.target;
+    const labelName = e.target.getAttribute("data-id");
     
     // console.log(name);
     // console.log(labelName);
