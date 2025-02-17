@@ -8,7 +8,7 @@ import THead from "./THead";
 const FullCart = () => {
   const [quantities, setQuantities] = useState({});
   const { cart, setCart } = useContext(ProductContext);
-  const { showCart, setShowCart } = useContext(CartContext);
+  const { setShowCart } = useContext(CartContext);
 
   //  Manejar el cierre del carrito en useEffect
   useEffect(() => {
@@ -38,11 +38,13 @@ const FullCart = () => {
         // Si la cantidad es 0, eliminamos el producto
         delete updatedQuantities[pid];
 
-        // También lo eliminamos del carrito
-        setCart((prevCart) => {
-          const newCart = prevCart.filter((item) => item.pid !== pid);
-          return newCart;
-        });
+          // También lo eliminamos del carrito
+          setCart((prevCart) => {
+            console.log(prevCart);
+            const newCart = prevCart.filter((item) => item.pid !== pid);
+            return newCart;
+          });
+
       } else {
         // Si no es 0, simplemente actualizamos la cantidad
         updatedQuantities[pid] = {
@@ -56,7 +58,7 @@ const FullCart = () => {
   };
 
   return (
-    <div>
+    <div className="fullCartWrapper">
       <div className="wrapper">
         <table className="product-table">
           <THead></THead>
@@ -101,8 +103,8 @@ const FullCart = () => {
         </table>
 
         <div className="cartButtons">
-          <EmptyButton></EmptyButton>
           <BuyButton></BuyButton>
+          <EmptyButton></EmptyButton>
         </div>
         <p className="importe">Total: {getTotal()} €</p>
       </div>

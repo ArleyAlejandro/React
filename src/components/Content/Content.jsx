@@ -10,10 +10,9 @@ const Content = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [quantities, setQuantities] = useState({});
 
-  const { showCart, setShowCart } = useContext(CartContext);
-  const { cart, setCart } = useContext(ProductContext);
+  const { showCart } = useContext(CartContext);
+  const { setCart } = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
 
   useEffect(() => {

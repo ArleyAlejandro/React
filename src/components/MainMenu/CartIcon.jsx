@@ -7,6 +7,8 @@ const CartIcon = () => {
   const { cart } = useContext(ProductContext);
   const { setShowCart } = useContext(CartContext);
 
+  // console.log("reder icon");
+
   const handleClick = (e) => {
     e.stopPropagation();
     if (cart.length > 0) {

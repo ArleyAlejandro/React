@@ -5,9 +5,9 @@ const BuyButton = () => {
   const { setShowCart } = useContext(CartContext);
 
   const handleClick = (e) => {
+    setShowCart((prev) => !prev);
     e.stopPropagation();
 
-    setShowCart((prev) => !prev);
   };
 
   return (

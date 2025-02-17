@@ -14,6 +14,8 @@ const Product = ({
   handleClick,
 }) => {
   const { showCart } = useContext(CartContext);
+  
+  // console.log("reder producto");
 
   if (!showCart) {
     return (

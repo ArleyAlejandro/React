@@ -1,6 +1,9 @@
 import CartIcon from "./CartIcon";
 
-export function MainMenu() {
+ function MainMenu() {
+
+  // console.log("render menu");
+
   return (
     <div className="main-menu">
       <nav className="nav">

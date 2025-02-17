@@ -56,7 +56,7 @@ body {
     }
   }
 
-  .importe{
+  .importe {
     grid-column: 3;
     font-weight: bold;
   }
@@ -85,7 +85,7 @@ body {
       font-weight: bold;
       margin-top: 0;
     }
-    h3{
+    h3 {
       font-size: 0.9rem;
     }
   }
@@ -111,12 +111,14 @@ body {
       transition: 0.5s;
       background: #1a8ab6;
     }
-
   }
 }
 
 .main-menu {
-  position: fixed; margin-top: 75px; width: 100%; height: 40px;
+  position: fixed;
+  margin-top: 75px;
+  width: 100%;
+  height: 40px;
   background: #556080;
   color: white;
 
@@ -179,6 +181,7 @@ body {
   display: flex;
   padding-top: 100px;
 
+
   .category {
     margin-inline: 5px;
     .category-item,
@@ -239,7 +242,7 @@ body {
     text-align: center;
   }
 
-  td:last-of-type{
+  td:last-of-type {
     width: 150px;
   }
 
@@ -249,7 +252,11 @@ body {
     object-fit: contain;
   }
 
-  .quantity-input{
+  .quantity-input {
     max-width: 100px;
   }
+}
+
+.fullCartWrapper{
+  flex: 1;
 }
