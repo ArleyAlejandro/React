@@ -10,6 +10,8 @@ const Content = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const productosPorPagina = 6;
 
   const { showCart } = useContext(CartContext);
   const { cart, setCart } = useContext(ProductContext);
@@ -28,18 +30,16 @@ const Content = () => {
       });
   }, []);
 
-
   const filteredProducts = products.filter((product) => {
     if (!Filter || Object.keys(Filter).length === 0) return true;
 
     return Object.entries(Filter).every(([key, values]) => {
-      if (!values || values.length === 0) return true; 
+      if (!values || values.length === 0) return true;
 
-      const productValue = product[key] ? String(product[key]) : ""; 
+      const productValue = product[key] ? String(product[key]) : "";
       return values.includes(productValue);
     });
   });
-
 
   const handleClick = useCallback(
     (e) => {
@@ -64,11 +64,17 @@ const Content = () => {
     [products, setCart]
   );
 
-  // guardar en localStorage el contenido del carro 
+  // guardar en localStorage el contenido del carro
   useEffect(() => {
     localStorage.setItem("Carrito", JSON.stringify(cart));
-  }, [cart]); 
+  }, [cart]);
 
+  const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
+  const indiceInicio = (paginaActual - 1) * productosPorPagina;
+  const productosVisibles = filteredProducts.slice(
+    indiceInicio,
+    indiceInicio + productosPorPagina
+  );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -78,32 +84,55 @@ const Content = () => {
     return (
       <div className="wrapper">
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <Product
-              key={product.model}
-              pid={product.pid}
-              marca={product.marca}
-              model={product.model}
-              imatge={product.imatge}
-              processador={product.processador}
-              ram={product.ram}
-              emmagatzematge={product.emmagatzematge}
-              polzades={product.polzades}
-              preu={product.preu}
-              handleClick={handleClick}
-            />
-          ))
+          <>
+            {productosVisibles.map((product) => (
+              <Product
+                key={product.model}
+                pid={product.pid}
+                marca={product.marca}
+                model={product.model}
+                imatge={product.imatge}
+                processador={product.processador}
+                ram={product.ram}
+                emmagatzematge={product.emmagatzematge}
+                polzades={product.polzades}
+                preu={product.preu}
+                handleClick={handleClick}
+              />
+            ))}
+
+            <button
+              className="back-button"
+              onClick={() => {
+                setPaginaActual(paginaActual - 1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={paginaActual === 1}
+            >
+              Anterior
+            </button>
+            <span className="page-number">
+              Página {paginaActual} de {totalPaginas}
+            </span>
+            <button
+              className="next-button"
+              onClick={() => {
+                setPaginaActual(paginaActual + 1);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={paginaActual === totalPaginas}
+            >
+              Siguiente
+            </button>
+          </>
         ) : (
           <p className="error">No se encontraron productos</p>
         )}
       </div>
     );
   }
-  // Mostrar la lista de productos dentro del carrito
   else {
-    return (
-      <FullCart></FullCart>
-    );
+    return <FullCart></FullCart>;
   }
 };
 

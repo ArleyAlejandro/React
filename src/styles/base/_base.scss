@@ -181,7 +181,6 @@ body {
   display: flex;
   padding-top: 100px;
 
-
   .category {
     margin-inline: 5px;
     .category-item,
@@ -257,6 +256,44 @@ body {
   }
 }
 
-.fullCartWrapper{
+.fullCartWrapper {
   flex: 1;
+}
+
+.back-button,
+.page-number,
+.next-button {
+  grid-row: 3;
+}
+
+.back-button,
+.next-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 16px;
+  margin-bottom: 5%;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 5%;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+  &:hover{
+    background-color: #0056b3;
+  }
+}
+
+.back-button {
+  grid-column: 1;
+}
+.page-number {
+  text-align: center;
+  grid-column: 2;
+}
+.next-button {
+  grid-column: 3;
 }
