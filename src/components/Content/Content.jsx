@@ -12,7 +12,7 @@ const Content = () => {
   const [error, setError] = useState(null);
 
   const { showCart } = useContext(CartContext);
-  const { setCart } = useContext(ProductContext);
+  const { cart, setCart } = useContext(ProductContext);
   const { Filter } = useContext(FilterContext);
 
   useEffect(() => {
@@ -54,14 +54,20 @@ const Content = () => {
         if (prevCart.some((item) => item.pid === selectedProduct.pid)) {
           return prevCart;
         }
+
+        const newCart = [...prevCart, selectedProduct];
+        localStorage.setItem("Carrito", JSON.stringify(newCart));
+
         return [...prevCart, selectedProduct];
       });
     },
     [products, setCart]
   );
 
- 
-
+  // guardar en localStorage el contenido del carro 
+  useEffect(() => {
+    localStorage.setItem("Carrito", JSON.stringify(cart));
+  }, [cart]); 
 
 
   if (loading) return <p>Loading...</p>;

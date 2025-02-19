@@ -17,6 +17,8 @@ const FullCart = () => {
     }
   }, [cart, setShowCart]);
 
+console.log(cart);
+
   const getTotal = () => {
     return cart
       .reduce((total, product) => {
